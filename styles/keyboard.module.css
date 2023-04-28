@@ -1,0 +1,40 @@
+.keyboardRow {
+  display: flex;
+  justify-content: center;
+}
+
+.keyboardButton {
+  background: #d4d6da;
+  border: none;
+  font-size: 20px;
+  font-weight: bold;
+  height: 60px;
+  width: 45px;
+  border-radius: 5px;
+  margin: 4px;
+}
+
+.alt {
+  width: 68px;
+  height: 60px;
+  font-size: 12px;
+}
+
+.keyboardButton.incorrect {
+  background: #797c7e;
+  color: white;
+}
+
+.keyboardButton.correct {
+  background: #79a86b;
+  color: white;
+}
+
+.keyboardButton.misplaced {
+  background: #c6b566;
+  color: white;
+}
+
+.keyboard {
+  margin-top: 20px;
+}
