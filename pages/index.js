@@ -17,8 +17,11 @@ function countOf(array, pred) {
   return array.filter(pred).length;
 }
 
-export default function Home() {
-  const word = ["H", "O", "U", "N", "D"];
+function getRandomInt(max) {
+  return Math.floor(Math.random() * max);
+}
+
+export default function Home({ word, words }) {
   const [guesses, setGuesses] = useState(Array(6).fill(Array(5).fill({letter: '', state: 'empty'})));
   const [letterStates, setLetterStates] = useState({});
   const [i, setI] = useState(0);
@@ -26,9 +29,13 @@ export default function Home() {
   const [won, setWon] = useState(false);
 
   function checkGuess() {
-    let guess = guesses[i].slice();
+    let guess = guesses[i].slice().map(g => g.letter);
+    if(!words.includes(guess.join(''))) {
+      alert('Not in word list');
+      return;
+    }
     let newLetterStates = Object.assign({}, letterStates);
-    const checkedGuess = guess.map(({ letter }, ind) => {
+    const checkedGuess = guess.map((letter, ind) => {
       if(letter === word[ind]) {
         newLetterStates[letter] = 'correct';
         return {letter: letter, state: 'correct'};
@@ -50,6 +57,7 @@ export default function Home() {
         break;
       case j === 5 && letter === 'ENTER':
         const checked = checkGuess();
+        if(checked === undefined) return;
         setGuesses([
           ...guesses.slice(0, i),
           checked,
@@ -90,4 +98,19 @@ export default function Home() {
       </main>
     </>
   )
+}
+
+export async function getServerSideProps() {
+  const res = await fetch('https://raw.githubusercontent.com/tabatkins/wordle-list/main/words');
+  const wordsText = await res.text();
+  const words = wordsText.split('\n')
+                         .map(word => word.toUpperCase());
+  const word = words[getRandomInt(words.length)].split('');
+
+  return {
+    props: {
+      word,
+      words
+    }
+  };
 }
