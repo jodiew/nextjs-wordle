@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import Board from '@/components/board';
 import Keyboard from '@/components/keyboard';
@@ -82,6 +82,23 @@ export default function Home({ word, words }) {
         break;
     }
   }
+
+  useEffect(() => {
+    function handleKeyDown(e) {
+      if(e.keyCode >= 65 && e.keyCode <= 90)
+        handleLetterClick(e.key.toUpperCase());
+      else if(e.keyCode === 13)
+        handleLetterClick("ENTER");
+      else if(e.keyCode === 8)
+        handleLetterClick("DELETE");
+    }
+
+    document.addEventListener('keydown', handleKeyDown);
+
+    return function cleanup() {
+      document.removeEventListener('keydown', handleKeyDown);
+    }
+  });
 
   return (
     <>

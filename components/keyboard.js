@@ -24,8 +24,8 @@ function KeyboardButton({ letter, state, onLetterClick }) {
 
 export default function Keyboard({ letterStates, onLetterClick }) {
   const letters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J",
-    "K", "L", "M", "N", "O", "P", "Q", "R", "S",
-    "T", "U", "V", "W", "X", "Y", "Z", "ENTER", "DELETE"];
+    "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T",
+    "U", "V", "W", "X", "Y", "Z", "ENTER", "DELETE"];
   return (
     <div className={styles.keyboard}>
       {letters.map(letter => {
