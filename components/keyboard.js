@@ -1,7 +1,7 @@
 import styles from '../styles/keyboard.module.css';
 
 function KeyboardButton({ letter, state, onLetterClick }) {
-  if(letter === "ENTER" || letter === "DELETE") {
+  if (letter === "ENTER" || letter === "DELETE") {
     return (
       <button
         className={`${styles.keyboardButton} ${styles.alt}`}
@@ -23,27 +23,19 @@ function KeyboardButton({ letter, state, onLetterClick }) {
 }
 
 export default function Keyboard({ letterStates, onLetterClick }) {
-  const rows =[
-    ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"],
-    ["K", "L", "M", "N", "O", "P", "Q", "R", "S"],
-    ["ENTER", "T", "U", "V", "W", "X", "Y", "Z", "DELETE"]
-  ]
+  const letters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J",
+    "K", "L", "M", "N", "O", "P", "Q", "R", "S",
+    "T", "U", "V", "W", "X", "Y", "Z", "ENTER", "DELETE"];
   return (
     <div className={styles.keyboard}>
-      {rows.map((letters, i) => {
+      {letters.map(letter => {
         return (
-          <div key={i} className={styles.keyboardRow}>
-            {letters.map(letter => {
-              return (
-                <KeyboardButton
-                  key={letter}
-                  letter={letter}
-                  state={letterStates[letter]}
-                  onLetterClick={onLetterClick}
-                />
-              );
-            })}
-          </div>
+          <KeyboardButton
+            key={letter}
+            letter={letter}
+            state={letterStates[letter]}
+            onLetterClick={onLetterClick}
+          />
         );
       })}
     </div>
